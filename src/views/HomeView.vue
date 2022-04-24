@@ -17,9 +17,9 @@
     <tbody>
     <tr v-for="song in songs">
       <td>{{ song.id }}</td>
-      <td><input @keyup.enter="updateSong(song.id, song.title)" type="text" v-model="song.title"></td>
-      <td><input @keyup.enter="updateSong(song.artiste)" type="text" v-model="song.artiste"></td>
-      <td><input @keyup.enter="updateSong(song.categoryId)" type="text" v-model="song.categoryId"></td>
+      <td><input @keyup.enter="updateSong(song.id,song.title)" type="text" v-model="song.title"></td>
+      <td><input @keyup.enter="updateSong(song.id, song.title,song.artiste)" type="text" v-model="song.artiste"></td>
+      <td><input @keyup.enter="updateSong(song.id, song.title,song.artiste,song.categoryId)" type="text" v-model="song.categoryId"></td>
       <td @click="deleteSong(song.id)">Supprimer</td>
     </tr>
     </tbody>
@@ -28,7 +28,6 @@
     <input @keyup.enter="storeSong" type="text" v-model="inputSong.title" placeholder="Ajouter un titre">
     <input @keyup.enter="storeSong" type="text" v-model="inputSong.artiste" placeholder="Ajouter un artiste">
     <input @keyup.enter="storeSong" type="text" v-model="inputSong.categoryId" placeholder="Ajouter une catégorie">
-
   </div>
 </template>
 <script>
@@ -126,13 +125,14 @@ export default {
 #customers td, #customers th {
   border: 1px solid #ddd;
   padding: 8px;
+  text-align: center;
 }
 #customers tr:nth-child(even){background-color: #f2f2f2;}
 #customers tr:hover {background-color: #ddd;}
 #customers th {
   padding-top: 12px;
   padding-bottom: 12px;
-  text-align: left;
+  text-align: center;
   background-color: #000000;
   color: white;
 }
