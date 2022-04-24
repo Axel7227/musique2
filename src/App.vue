@@ -1,10 +1,15 @@
 <template>
-  <nav>
-    <router-link to="/">Home</router-link> |
-    <router-link to="/about">About</router-link>
+  <nav class="navbar navbar-expand navbar-dark bg-dark">
+    <router-link to="/musique" class="navbar-brand">Musique</router-link>
+    <div class="navbar-nav mr-auto">
+      <li class="nav-item">
+        <router-link to="/categorie" class="nav-link">Catégorie</router-link>
+      </li>
+    </div>
   </nav>
   <router-view/>
 </template>
+
 
 <style>
 #app {
