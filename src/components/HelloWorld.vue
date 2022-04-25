@@ -1,57 +1,156 @@
 <template>
-  <div class="hello">
-    <h1>{{ msg }}</h1>
-    <p>
-      For a guide and recipes on how to configure / customize this project,<br>
-      check out the
-      <a href="https://cli.vuejs.org" target="_blank" rel="noopener">vue-cli documentation</a>.
-    </p>
-    <h3>Installed CLI Plugins</h3>
-    <ul>
-      <li><a href="https://github.com/vuejs/vue-cli/tree/dev/packages/%40vue/cli-plugin-router" target="_blank" rel="noopener">router</a></li>
-    </ul>
-    <h3>Essential Links</h3>
-    <ul>
-      <li><a href="https://vuejs.org" target="_blank" rel="noopener">Core Docs</a></li>
-      <li><a href="https://forum.vuejs.org" target="_blank" rel="noopener">Forum</a></li>
-      <li><a href="https://chat.vuejs.org" target="_blank" rel="noopener">Community Chat</a></li>
-      <li><a href="https://twitter.com/vuejs" target="_blank" rel="noopener">Twitter</a></li>
-      <li><a href="https://news.vuejs.org" target="_blank" rel="noopener">News</a></li>
-    </ul>
-    <h3>Ecosystem</h3>
-    <ul>
-      <li><a href="https://router.vuejs.org" target="_blank" rel="noopener">vue-router</a></li>
-      <li><a href="https://vuex.vuejs.org" target="_blank" rel="noopener">vuex</a></li>
-      <li><a href="https://github.com/vuejs/vue-devtools#vue-devtools" target="_blank" rel="noopener">vue-devtools</a></li>
-      <li><a href="https://vue-loader.vuejs.org" target="_blank" rel="noopener">vue-loader</a></li>
-      <li><a href="https://github.com/vuejs/awesome-vue" target="_blank" rel="noopener">awesome-vue</a></li>
-    </ul>
+  <div id="table">
+    <table class="table">
+      <thead>
+      <tr>
+        <th>Id</th>
+        <th>Titre</th>
+        <th>Artiste</th>
+        <th>Catégorie Id</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr v-for="song in songs">
+        <td>{{ song.id }}</td>
+        <td>
+          <input type="text" @keyup.enter="updateSong(song.id, song.artiste, song.title, song.categoryId)" v-model="song.title">
+        </td>
+        <td>
+          <textarea rows="1.5" cols="80" type="text" @keyup.enter="updateSong(song.id, song.artiste, song.title, song.categoryId)" v-model="song.artiste"></textarea>
+        </td>
+        <td>{{ song.category.title }}</td>
+        <td>
+          <button @click="deleteSong(song.id)">Supprimer</button>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+    <router-link class="link" to="/create-product">Ajouter une musique</router-link>
   </div>
 </template>
 
 <script>
+import axios from 'axios';
 export default {
-  name: 'HelloWorld',
-  props: {
-    msg: String
+  name: 'Crud Song',
+  data() {
+    return {
+      songs: null,
+      categories: null,
+      updatedSong: {
+        title: null,
+        artiste: null,
+        categoryId: null
+      }
+    }
+  },
+  methods: {
+    loadSongs() {
+      axios.get('http://localhost:3000/songs?_expand=category')
+          .then(
+              (result) => {
+                this.plants = result.data
+              }
+          )
+          .catch(
+              (error) => {
+                console.log(error)
+              }
+          )
+    },
+    deleteSong(songId) {
+      axios.delete('http://localhost:3000/songs/' + songId)
+          .then(
+              (result) => {
+                console.log('Bravo !!!')
+                this.loadSongs()
+              }
+          )
+          .catch(
+              (error) => {
+                console.log('Cela ne fonctionne pas')
+                this.loadSongs()
+              }
+          )
+    },
+    updateSong(songId, songArtiste, songTitle, songCategoryId) {
+      axios.put('http://localhost:3000/songs/' + songId, {
+        "artiste" : songArtiste,
+        "title" : songTitle,
+        "categoryId" : songCategoryId
+      })
+          .then(
+              (result) => {
+                console.log(songId, songArtiste)
+                this.loadSongs()
+              }
+          )
+          .catch(
+              (error) => {
+                console.log('Cela ne fonctionne pas')
+              }
+          )
+    },
+    loadCategories() {
+      axios.get('http://localhost:3000/categories')
+          .then(
+              (result) => {
+                this.categories = result.data
+              }
+          )
+          .catch(
+              (error) => {
+                console.log(error)
+              }
+          )
+    }
+  },
+  mounted() {
+    this.loadSongs()
+    this.loadCategories()
   }
 }
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped>
-h3 {
-  margin: 40px 0 0;
+<style >
+.link {
+  font-weight: bold;
+  color: blue;
+  text-decoration: none;
+  margin: 10px;
+  font-size: 1.5rem;
 }
-ul {
-  list-style-type: none;
-  padding: 0;
+#table {
+  font-family: Arial, Helvetica, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
 }
-li {
+#customers td, #customers th {
+  border: 1px solid #ddd;
+  padding: 8px;
+}
+#customers tr:nth-child(even) {
+  background-color: #f2f2f2;
+}
+#table tr:hover {
+  background-color: #ddd;
+}
+#table th {
+  padding-top: 15px;
+  padding-bottom: 15px;
+  text-align: center;
+  color: black;
+}
+input[type=text], select {
+  width: 550px;
+  padding: 12px 20px;
+  margin: 8px 0;
   display: inline-block;
-  margin: 0 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
 }
-a {
-  color: #42b983;
+.table {
+  margin: auto;
 }
 </style>
