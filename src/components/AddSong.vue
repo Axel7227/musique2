@@ -1,15 +1,34 @@
 <template>
+  <div class="musique">
+    <hr>
+    <h1>Ajouter un Titre :</h1>
+    <hr>
+  </div>
   <div class="container">
-    <input required type="text" v-model="songs.title" placeholder="Titre de la musique">
-    <input required type="text" v-model="songs.artiste" placeholder="Description de la musique">
-    <select required v-model="songs.categoryId">
+    <div id="addbutton">
+      <router-link :to="{path: '/'}"><button class="btn btn-danger">Retour</button></router-link>
+    </div>
+    <hr>
+    <div class="form-group mx-sm-3 mb-2">
+      <input required type="text" class="form-control" v-model="song.title" aria-label="Default" placeholder="Titre">
+    </div>
+   <hr>
+    <div class="form-group mx-sm-3 mb-2">
+      <input required type="text" class="form-control" v-model="song.artiste" aria-label="Default" placeholder="Artiste">
+    </div>
+    <hr>
+    <select class="form-select" required v-model="song.categoryId" aria-label="Default select example">
+      <option selected>Choisir la catégorie</option>
       <option v-for="category in categories" :value="category.id">{{ category.title }}</option>
     </select>
+    <hr>
     <input @click="storeSong" type="submit" value="envoyer">
   </div>
-
+<br>
   {{ song.title }}
+<br>
   {{ song.artiste }}
+  <br>
   {{ song.categoryId }}
 </template>
 
@@ -71,5 +90,9 @@ export default {
 .container input, select {
   margin-left: auto;
   margin-right: auto;
+}
+#addbutton{
+  font-family: Arial, Helvetica, sans-serif;
+  color: white;
 }
 </style>

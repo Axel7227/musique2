@@ -1,8 +1,10 @@
 <template>
+  <hr>
   <div>
-    <h1>{{ category.title }}</h1>
-    <ul>
-      <li v-for="song in category.songs">{{ song.title }}</li>
+    <h1 class="display-1">{{ category.title }}</h1>
+    <hr>
+    <ul class="list-group">
+      <li class="list-group-item list-group-item-action list-group-item-dark" v-for="song in category.songs">{{ song.title }}</li>
     </ul>
   </div>
 </template>
@@ -44,3 +46,32 @@ export default {
   }
 }
 </script>
+<style>
+
+h1{
+  text-align: center;
+}
+
+
+li{
+  text-align: center;
+
+}
+
+h1
+{
+  font-size: 50px;
+  text-shadow: -1px -1px #eee, 1px 1px #888, -3px 0 4px #000;
+  font-family:Arial, Helvetica, sans-serif;
+  color:white;
+  padding:10px;
+  font-weight: normal;
+  -moz-box-shadow: 2px 2px 6px #000000;
+  -webkit-box-shadow: 2px 2px 6px #000000;
+  box-shadow:2px 2px 6px #000000;
+  text-align:center;
+  display:inline;
+  line-height:92px;
+  background-color: black;
+}
+</style>

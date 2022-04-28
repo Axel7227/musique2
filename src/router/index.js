@@ -1,8 +1,9 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import HomeView from '../views/HomeView.vue'
+import HomeView from '../views/Song.vue'
 import Categories from "@/components/Categories";
 import AddSong from "@/components/AddSong";
 import ShowCategory from "@/components/ShowCategory";
+import AddCategory from "@/components/AddCategory";
 
 const routes = [
   {
@@ -14,6 +15,12 @@ const routes = [
     path: '/create-song',
     name: 'create-song',
     component: AddSong
+
+  },
+  {
+    path: '/create-category',
+    name: 'create-category',
+    component: AddCategory
 
   },
   {

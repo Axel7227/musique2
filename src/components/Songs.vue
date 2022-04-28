@@ -1,38 +1,40 @@
 <template>
-  <div id="table">
-    <table class="table">
+
+  <div class="musique">
+    <h1 class="display-1">Les Titres</h1>
+  </div>
+  <div id="addbutton">
+  <router-link :to="{path: '/create-song'}"><button class="btn btn-dark">Ajouter un titre</button></router-link>
+  </div>
+<br>
+  <table class="table table-dark table-hover">
       <thead>
       <tr>
-        <th>Id</th>
+        <th>ID</th>
         <th>Titre</th>
         <th>Artiste</th>
-        <th>Catégorie Id</th>
+        <th>Catégorie</th>
+        <th>Actions</th>
       </tr>
       </thead>
       <tbody>
       <tr v-for="song in songs">
         <td>{{ song.id }}</td>
+        <td><input @keyup.enter="updateSong(song.id,song.title,song.artiste,song.categoryId)" type="text" v-model="song.title"></td>
+        <td><input @keyup.enter="updateSong(song.id, song.title,song.artiste,song.categoryId)" type="text" v-model="song.artiste"></td>
+        <td><input @keyup.enter="updateSong(song.id, song.title,song.artiste,song.categoryId)" type="text" v-model="song.categoryId"></td>
         <td>
-          <input type="text" @keyup.enter="updateSong(song.id, song.artiste, song.title, song.categoryId)" v-model="song.title">
-        </td>
-        <td>
-          <textarea rows="1.5" cols="80" type="text" @keyup.enter="updateSong(song.id, song.artiste, song.title, song.categoryId)" v-model="song.artiste"></textarea>
-        </td>
-        <td>{{ song.category.title }}</td>
-        <td>
-          <button @click="deleteSong(song.id)">Supprimer</button>
+          <button class="btn btn-danger" @click="deleteSong(song.id)">Supprimer</button>
         </td>
       </tr>
       </tbody>
     </table>
-    <router-link class="link" to="/create-product">Ajouter une musique</router-link>
-  </div>
 </template>
 
 <script>
 import axios from 'axios';
 export default {
-  name: 'Crud Song',
+  name: 'Crud Songs',
   data() {
     return {
       songs: null,
@@ -46,10 +48,10 @@ export default {
   },
   methods: {
     loadSongs() {
-      axios.get('http://localhost:3000/songs?_expand=category')
+      axios.get('http://localhost:3000/songs')
           .then(
               (result) => {
-                this.plants = result.data
+                this.songs = result.data
               }
           )
           .catch(
@@ -112,15 +114,8 @@ export default {
 }
 </script>
 
-<style >
-.link {
-  font-weight: bold;
-  color: blue;
-  text-decoration: none;
-  margin: 10px;
-  font-size: 1.5rem;
-}
-#table {
+<style scoped>
+#customers {
   font-family: Arial, Helvetica, sans-serif;
   border-collapse: collapse;
   width: 100%;
@@ -128,21 +123,19 @@ export default {
 #customers td, #customers th {
   border: 1px solid #ddd;
   padding: 8px;
-}
-#customers tr:nth-child(even) {
-  background-color: #f2f2f2;
-}
-#table tr:hover {
-  background-color: #ddd;
-}
-#table th {
-  padding-top: 15px;
-  padding-bottom: 15px;
   text-align: center;
-  color: black;
+}
+#customers tr:nth-child(even){background-color: #f2f2f2;}
+#customers tr:hover {background-color: #ddd;}
+#customers th {
+  padding-top: 12px;
+  padding-bottom: 12px;
+  text-align: center;
+  background-color: #000000;
+  color: white;
 }
 input[type=text], select {
-  width: 550px;
+  width: 100%;
   padding: 12px 20px;
   margin: 8px 0;
   display: inline-block;
@@ -150,7 +143,37 @@ input[type=text], select {
   border-radius: 4px;
   box-sizing: border-box;
 }
-.table {
-  margin: auto;
+
+#addbutton{
+  font-family: Arial, Helvetica, sans-serif;
+  color: white;
+}
+router-link{
+  alignment: center;
+}
+
+h1
+{
+  font-size: 50px;
+  text-shadow: -1px -1px #eee, 1px 1px #888, -3px 0 4px #000;
+  font-family:Arial, Helvetica, sans-serif;
+  color:white;
+  padding:10px;
+  font-weight: normal;
+  -moz-box-shadow: 2px 2px 6px #000000;
+  -webkit-box-shadow: 2px 2px 6px #000000;
+  box-shadow:2px 2px 6px #000000;
+  text-align:center;
+  display:inline;
+  line-height:92px;
+  background-color: black;
+}
+table{
+  background-color: white;
+  border: 1px solid black;
+  width: 1300px;
+  margin-left: auto;
+  margin-right: auto;
+
 }
 </style>
