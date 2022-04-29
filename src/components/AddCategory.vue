@@ -6,7 +6,7 @@
   </div>
   <div class="container">
     <div id="addbutton">
-      <router-link :to="{path: '/categories'}"><button class="btn btn-danger">Retour</button></router-link>
+      <router-link :to="{path: '/categories'}"><button class="btn btn-danger">retour</button></router-link>
     </div>
     <hr>
     <div class="form-group mx-sm-3 mb-2">
