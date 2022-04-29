@@ -8,7 +8,7 @@ import AddCategory from "@/components/AddCategory";
 const routes = [
   {
     path: '/',
-    name: 'home',
+    name: 'songs',
     component: HomeView
   },
   {

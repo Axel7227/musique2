@@ -2,10 +2,6 @@
   <div class="categorie">
     <h1 class="display-1">Les Catégories musicales :</h1>
   </div>
-  <div id="addbutton">
-    <router-link :to="{path: '/create-category'}"><button class="btn btn-dark">Ajouter une catégorie</button></router-link>
-  </div>
-  <br>
   <table class="table table-dark table-hover">
         <thead>
         <tr>

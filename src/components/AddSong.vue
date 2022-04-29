@@ -95,4 +95,21 @@ export default {
   font-family: Arial, Helvetica, sans-serif;
   color: white;
 }
+
+input[type="text"], textarea {
+
+  background-color : black;
+  font-family: Arial, Helvetica, sans-serif;
+  color: #FE9006;
+}
+
+select {
+  background-color:  #000000;
+}
+
+
+select option {
+  background: black;
+  color: orange;
+}
 </style>

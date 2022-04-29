@@ -20,9 +20,9 @@
 </template>
 
 <script>
-import axios from 'axios'
+import axios from 'axios';
+import router from "@/router";
 export default {
-  name: 'HelloWorld',
   data() {
     return {
       category : null,
@@ -48,19 +48,6 @@ export default {
             )
       }
     },
-    loadCategories() {
-      axios.get('http://localhost:3000/categories')
-          .then(
-              (result) => {
-                this.categories = result.data
-              }
-          )
-          .catch(
-              (error) => {
-                console.log(error)
-              }
-          )
-    }
   },
   mounted() {
     this.loadCategories()

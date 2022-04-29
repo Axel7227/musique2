@@ -20,15 +20,15 @@
       <tbody>
       <tr v-for="song in songs">
         <td>{{ song.id }}</td>
-        <td><input @keyup.enter="updateSong(song.id,song.title,song.artiste,song.categoryId)" type="text" v-model="song.title"></td>
-        <td><input @keyup.enter="updateSong(song.id, song.title,song.artiste,song.categoryId)" type="text" v-model="song.artiste"></td>
-        <td><input @keyup.enter="updateSong(song.id, song.title,song.artiste,song.categoryId)" type="text" v-model="song.categoryId"></td>
+        <td><input @keyup.enter="updateSong(song.id,song.artiste,song.title,song.categoryId)" type="text" v-model="song.title"></td>
+        <td><input @keyup.enter="updateSong(song.id, song.artiste,song.title,song.categoryId)" type="text" v-model="song.artiste"></td>
+        <td><input @keyup.enter="updateSong(song.id, song.artiste,song.title,song.categoryId)" type="text" v-model="song.categoryId"></td>
         <td>
           <button class="btn btn-danger" @click="deleteSong(song.id)">Supprimer</button>
         </td>
       </tr>
       </tbody>
-    </table>
+  </table>
 </template>
 
 <script>
@@ -61,19 +61,22 @@ export default {
           )
     },
     deleteSong(songId) {
-      axios.delete('http://localhost:3000/songs/' + songId)
-          .then(
-              (result) => {
-                console.log('Bravo !!!')
-                this.loadSongs()
-              }
-          )
-          .catch(
-              (error) => {
-                console.log('Cela ne fonctionne pas')
-                this.loadSongs()
-              }
-          )
+
+      if(confirm("Voulez vraiment supprimer ce titre ?")) {
+        axios.delete('http://localhost:3000/songs/' + songId)
+            .then(
+                (result) => {
+                  console.log('Bravo !!!')
+                  this.loadSongs()
+                }
+            )
+            .catch(
+                (error) => {
+                  console.log('Cela ne fonctionne pas')
+                  this.loadSongs()
+                }
+            )
+      }
     },
     updateSong(songId, songArtiste, songTitle, songCategoryId) {
       axios.put('http://localhost:3000/songs/' + songId, {

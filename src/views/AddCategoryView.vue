@@ -6,11 +6,11 @@
 </template>
 
 <script>
-import AddSong from "@/components/AddCategory";
+import AddCategory from "@/components/AddCategory";
 export default {
   name: 'AboutView',
   components: {
-    AddSong
+    AddCategory
   }
 }
 </script>
