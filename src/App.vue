@@ -1,7 +1,10 @@
 <template>
   <nav class="navbar navbar-expand navbar-dark bg-dark">
-    <router-link to="/" class="navbar-brand">Musique</router-link>
+    <router-link to="/home" class="navbar-brand">Accueil</router-link>
     <div class="navbar-nav mr-auto">
+      <li class="nav-item">
+        <router-link to="/" class="nav-link">Musique</router-link>
+      </li>
       <li class="nav-item">
         <router-link to="/categories" class="nav-link">Catégorie</router-link>
       </li>

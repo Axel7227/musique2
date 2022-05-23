@@ -4,6 +4,7 @@ import Categories from "@/components/Categories";
 import AddSong from "@/components/AddSong";
 import ShowCategory from "@/components/ShowCategory";
 import AddCategory from "@/components/AddCategory";
+import Home from "@/components/Home";
 
 const routes = [
   {
@@ -15,6 +16,12 @@ const routes = [
     path: '/create-song',
     name: 'create-song',
     component: AddSong
+
+  },
+  {
+    path: '/home',
+    name: 'home',
+    component: Home
 
   },
   {
